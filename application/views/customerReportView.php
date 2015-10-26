@@ -21,7 +21,7 @@
 			<div class="col-sm-12">
 				<form class="form-inline">
 						<div class="form-group selectpicker" data-live-search='true'>
-							<label class = "col-sm-4 control-label">Shop ID</label>
+							<label class = "col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
 								<select id = "name_select" class = "form-control selectpicker">
 								</select>
@@ -81,6 +81,8 @@
 $(document).ready(function()
 {
 
+	fetchShops();
+
 	$('.selectpicker').selectpicker(); 
 
 	$('.selectpicker').selectpicker('val', 2); 
@@ -90,7 +92,7 @@ $(document).ready(function()
 			format : 'yyyy-mm-dd'
 		});
 
-
+	
 
 	var address = new Bloodhound({
 
@@ -180,6 +182,7 @@ function fetchShops()
 					$('#name_select').append(new Option(object.name,object.id));
 				});
 			}
+
 			$('#name_select').selectpicker('refresh');			
 		}
 	});

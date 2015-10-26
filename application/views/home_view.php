@@ -57,7 +57,7 @@
 
 		      		 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees</a>
 							<ul class="dropdown-menu">
-			            <li><a href="<?php echo site_url('/employee/index');?>">Employees View</a></li>
+			            <li><a href="<?php echo site_url('/employee');?>">Employees View</a></li>
 			            <li><a href="<?php echo site_url('/employee/redirect');?>"> Employees Report View</a></li>
 			          </ul>
 		      		</li>
@@ -96,7 +96,7 @@
 		        </li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="#">Logout</a></li>
+		        <li><a href="<?php echo site_url('/login');?>">Logout</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
