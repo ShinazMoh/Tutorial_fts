@@ -64,7 +64,7 @@
 
 		      		 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customers</a>
 							<ul class="dropdown-menu">
-			            <li><a href="">Customers View</a></li>
+			            <li><a href="<?php echo site_url('customer')?>">Customers View</a></li>
 			            <li><a href=""> Customers Report View</a></li>
 			          </ul>
 		      		</li>
