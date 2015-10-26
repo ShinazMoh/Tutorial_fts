@@ -1,5 +1,5 @@
 <html>
-<head><title></title>
+<head><title>Home View</title>
 	<link href="<?php echo base_url('/css/bootstrap.css');  ?>" rel="stylesheet">
 	<link href="<?php echo base_url('/css/typeahead.css');  ?>" rel="stylesheet">
 	<link href="<?php echo base_url('/css/bootstrap-select.min.css');  ?>" rel="stylesheet">
