@@ -163,7 +163,7 @@ function save()
 {
 	var name = $('#Name').val();
 	var address = $('#Address').val();
-
+	var shopid = $('#shop_select').val();
 
 	if($('#Status').is(":checked"))
 	{
@@ -177,7 +177,7 @@ function save()
 	$.ajax({
 		  	
 	  	type:'POST',
-	  	data:  {'name' : name, 'address' : address, 'status' : status},
+	  	data:  {'name' : name, 'address' : address, 'status' : status, 'shopid' : shopid},
         url:"<?php echo site_url('/Customer/save');?>",
         dataType : 'json',
         success:function(data)
@@ -244,6 +244,7 @@ function search_customer()
         		$('#Name').val(data.Name); 
         		$('#Address').val(data.Address); 
         		$('#CusID').val(data.id); 
+        		$('#shop_select').val(data.shopid);
 
         		if(data.Status==1)
         		{
@@ -315,9 +316,12 @@ function fetchShops()
 
 function update()
 {
+	$('#shop_select').selectpicker();
+
 	var id = $('#CusID').val();
 	var name = $('#Name').val();
 	var address = $('#Address').val();
+	var shopid = $('#shop_select').val();
 
 
 	if($('#Status').is(":checked"))
@@ -332,7 +336,7 @@ function update()
 	$.ajax({
 		  	
 	  	type:'POST',
-	  	data:  {'id' : id, 'name' : name, 'address' : address, 'status' : status},
+	  	data:  {'id' : id, 'name' : name, 'address' : address, 'status' : status, 'shopid' : shopid},
         url:"<?php echo site_url('/Customer/update');?>",
         dataType : 'json',
         success:function()
