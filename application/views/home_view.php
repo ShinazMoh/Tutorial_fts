@@ -111,18 +111,7 @@
 		</nav>
 		</div>
 
-	<div class="row">
-		<div class="col-sm-12 ">
-			       <div class="jumbotron">
-            <h1 class="page-header">Welcome User,<br>
-        </div>
-        
-            <div class="row">
-               <h1>You Like It ?</h1>
-               <br>
-            </div>
 
-        </div>
 		</div>
 	</div>
 </div>
