@@ -4,6 +4,9 @@
 	<link href="<?php echo base_url('/css/bootstrap.css');  ?>" rel="stylesheet">
 	<link href="<?php echo base_url('/css/typeahead.css');  ?>" rel="stylesheet">
 	<link href="<?php echo base_url('/css/bootstrap-select.min.css');  ?>" rel="stylesheet">
+	<link href="<?php echo base_url('/css/formValidation.min.css');  ?>" rel="stylesheet">
+
+
 
 	<?php
 
@@ -20,6 +23,8 @@
 	}
 	
 ?>
+
+
 </head>
 
 <body>
@@ -42,11 +47,11 @@
 	<div class="well">
 		<div class="row">
 			<div class="col-sm-6">
-				<form class="form-horizontal" method="POST">
+				<form class="form-horizontal" id="myform" method="POST" action="<?php echo site_url('/login/Submit');?>" >
 					<div class="form-group text-center" >
 						<label for="Name" class="col-sm-4 control-label">Name : </label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="Name" placeholder="Name" >
+							<input type="text" class="form-control" name = "Name" id="Name" placeholder="Name" >
 							<input type="hidden" id="CusID" >
 						</div>
 
@@ -54,7 +59,7 @@
 					<div class="form-group text-center" >
 						<label for="Address" class="col-sm-4 control-label">Address : </label>
 						<div class="col-sm-8">
-							<textarea class="form-control" rows="3"  id="Address"placeholder="Address"></textarea>
+							<textarea class="form-control" rows="3" name = "Address" id="Address"placeholder="Address"></textarea>
 						</div>
 					</div>
 					<div class="form-group text-center">
@@ -102,7 +107,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-sm-offset-2">
 				<div class="col-sm-2">
-					<button type="button" onClick="save();" class="btn btn-primary">Add Now</button>
+					<button type="submit" class="btn btn-primary">Add Now</button>
 				</div>
 
 				<div class="col-sm-2">
@@ -134,10 +139,84 @@
 <script type="text/javascript" src="<?php echo base_url('/js/Typeahead.js');  ?> "></script>
 <script type="text/javascript" src="<?php echo base_url('/js/bloodhound.js');  ?> "></script>
 
+<script type="text/javascript" src="<?php echo base_url('/js/formValidation.min.js
+');  ?> "></script>
+<script type="text/javascript" src="<?php echo base_url('/js/framework/bootstrap.js');  ?> "></script>
+
+
+
+
 <script type="text/javascript">
 
 $(document).ready(function() 
 {
+
+  $('#myform').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        live : 'enable',
+        fields: {
+            Name: {
+                validators: {
+                    notEmpty: {
+                        message: 'The name is required'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The name must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_]+$/,
+                        message: 'The name can only consist of alphabetical, number and underscore'
+                    },
+                  	remote: {
+					        url: "<?php echo site_url('/Customer/search_customer_name/');?>",
+					        type: "post",
+					        data: {
+					          username: function() 
+					          { 
+					          	return $( "#Name" ).val();
+					          }
+			        		},
+
+			        		message: "Name already in use"
+	                }
+	            }
+	        },
+	           
+         	Address: {
+	            validators: {
+	                notEmpty: {
+	                    message: 'The Address is required'
+	                },
+	                stringLength: {
+	                    min: 6,
+	                    max: 30,
+	                    message: 'The name must be more than 6 and less than 30 characters long'
+	                },
+	                regexp: {
+	                    regexp: /^[a-zA-Z0-9_]+$/,
+	                    message: 'The Address can only consist of alphabetical, number and underscore'
+	                }
+	            }
+     	   	},
+
+     	   	shop_select: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Shop Id is required'
+                    }
+                }
+            }
+        }
+    });
+
+
 
 	var names = new Bloodhound({
 
@@ -161,9 +240,10 @@ $(document).ready(function()
 
 function save()
 {
+
 	var name = $('#Name').val();
 	var address = $('#Address').val();
-
+	var shopid = $('#shop_select').val();
 
 	if($('#Status').is(":checked"))
 	{
@@ -177,7 +257,7 @@ function save()
 	$.ajax({
 		  	
 	  	type:'POST',
-	  	data:  {'name' : name, 'address' : address, 'status' : status},
+	  	data:  {'name' : name, 'address' : address, 'status' : status, 'shopid' : shopid},
         url:"<?php echo site_url('/Customer/save');?>",
         dataType : 'json',
         success:function(data)
@@ -244,6 +324,7 @@ function search_customer()
         		$('#Name').val(data.Name); 
         		$('#Address').val(data.Address); 
         		$('#CusID').val(data.id); 
+        		$('#shop_select').val(data.shopid);
 
         		if(data.Status==1)
         		{
@@ -315,9 +396,12 @@ function fetchShops()
 
 function update()
 {
+	$('#shop_select').selectpicker();
+
 	var id = $('#CusID').val();
 	var name = $('#Name').val();
 	var address = $('#Address').val();
+	var shopid = $('#shop_select').val();
 
 
 	if($('#Status').is(":checked"))
@@ -332,7 +416,7 @@ function update()
 	$.ajax({
 		  	
 	  	type:'POST',
-	  	data:  {'id' : id, 'name' : name, 'address' : address, 'status' : status},
+	  	data:  {'id' : id, 'name' : name, 'address' : address, 'status' : status, 'shopid' : shopid},
         url:"<?php echo site_url('/Customer/update');?>",
         dataType : 'json',
         success:function()

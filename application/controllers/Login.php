@@ -73,4 +73,9 @@ class Login extends CI_Controller {
 			$this->Forget_Pass();
 		} 	
 	}
+
+	public function search_name()
+	{
+		echo json_encode($this->load->model('login_model'));
+	}
 }

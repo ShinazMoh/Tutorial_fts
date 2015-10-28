@@ -58,6 +58,21 @@ class Customer extends CI_Controller {
 	{
 		echo json_encode($this->customer_model->fetch_shops());
 	}
+
+
+	public function search_customer_name()
+	{
+		$data = $this->customer_model->search_customer_name();
+
+		if($data>0)
+		{
+			echo true;
+		}
+		else
+		{
+			echo false;
+		}
+	}
 	
 
 }

@@ -17,31 +17,31 @@ class Report_model extends CI_Model
 		return $this->db->get('USER')->result_array();
 	}
 
-	// function fetch_users()
-	// {
-	// 	$data = array();
+	function fetch_users()
+	{
+		$data = array();
 
-	// 	$this->db->select('USER_ID AS "Id", USER_Name AS "Name", USER_Age AS "Age", USER_Address AS "Address"');	
+		$this->db->select('USER_ID AS "Id", USER_Name AS "Name", USER_Age AS "Age", USER_Address AS "Address"');	
 
-	// 	if(!empty($_POST['name']))
-	// 	{
-	// 		$this->db->where('USER_Name',$_POST['name']);
-	// 	}
+		if(!empty($_POST['name']))
+		{
+			$this->db->where('USER_Name',$_POST['name']);
+		}
 
-	// 	if(!empty($_POST['date']))
-	// 	{
-	// 		$this->db->where('USER_Timestamp >= ',$_POST['date']);
-	// 	}
+		if(!empty($_POST['date']))
+		{
+			$this->db->where('USER_Timestamp >= ',$_POST['date']);
+		}
 
-	// 	if(!empty($_POST['age']))
-	// 	{
-	// 		$this->db->where('USER_Age',$_POST['age']);
-	// 	}
+		if(!empty($_POST['age']))
+		{
+			$this->db->where('USER_Age',$_POST['age']);
+		}
 
-	// 	$data['data'] = $this->db->get('USER')->result_array();
+		$data['data'] = $this->db->get('USER')->result_array();
 		
-	// 	return $data;
-	// }
+		return $data;
+	}
 
 	function search_address()
 	{
@@ -80,11 +80,13 @@ class Report_model extends CI_Model
 		return $data;
 	}
 
-		function fetch_name()
+	function fetch_name()
 	{
 		$this->db->select('CUSTOMER_Name AS "name"');
 		return $this->db->get('CUSTOMER')->result_array();
 	}
 
+
+	
 
 }

@@ -22,6 +22,8 @@ class Customer_model extends CI_Model
 
 			$data['CUSTOMER_CreatedUser']	= 'Shinaz';
 
+			$data['SHOP_ID'] = $_POST['shopid'];
+
 			$this->db->insert('CUSTOMER',$data);
 
 			return true;
@@ -52,7 +54,7 @@ class Customer_model extends CI_Model
 
 	function search_customer()
 	{
-		$this->db->select('CUSTOMER_ID AS "id", CUSTOMER_Name AS "Name", CUSTOMER_Address AS "Address", CUSTOMER_Status AS "Status"');
+		$this->db->select('CUSTOMER_ID AS "id", CUSTOMER_Name AS "Name", CUSTOMER_Address AS "Address", CUSTOMER_Status AS "Status", SHOP_ID AS shopid ');
 		$this->db->where('CUSTOMER_Name', $_POST['name']);
 		$data = $this->db->get('CUSTOMER')->row_array();
 
@@ -68,15 +70,26 @@ class Customer_model extends CI_Model
 	function UpdateData()
 	{
 
-		$data=array('CUSTOMER_Name'=> $_POST['name'],'CUSTOMER_Address'=>$_POST['address'], 'CUSTOMER_Status' => $_POST['status']);
+		$data=array('CUSTOMER_Name'=> $_POST['name'],'CUSTOMER_Address'=>$_POST['address'], 'CUSTOMER_Status' => $_POST['status'], 'SHOP_ID' => $_POST['shopid'], 'CUSTOMER_UpdateTimestamp' => date('y-m-d'));
 		$this->db->where('CUSTOMER_ID',$_POST['id']);
 		$this->db->update('CUSTOMER',$data);	
+
+
 	}
 
 	function fetch_shops()
 	{
 		$this->db->select('SHOP_ID AS "id",SHOP_Name AS "name"');
 		return $this->db->get('SHOP')->result_array();
+	}
+
+	function search_customer_name()
+	{
+		
+		$this->db->where('CUSTOMER_Name',$_POST['Name']);
+		$this->db->from('CUSTOMER');
+		return $this->db->count_all_results();
+
 	}
 
 }
