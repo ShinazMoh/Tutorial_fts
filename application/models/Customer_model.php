@@ -83,4 +83,13 @@ class Customer_model extends CI_Model
 		return $this->db->get('SHOP')->result_array();
 	}
 
+	function search_customer_name()
+	{
+		
+		$this->db->where('CUSTOMER_Name',$_POST['Name']);
+		$this->db->from('CUSTOMER');
+		return $this->db->count_all_results();
+
+	}
+
 }

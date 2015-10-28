@@ -19,7 +19,7 @@
 	<DIV class="well">
 		<div class="row">						
 			<div class="col-md-6 col-sm-offset-4">
-				<form class="form-horizontal" method="post" action="<?php echo site_url('/login/Submit');?>">
+				<form class="form-horizontal" id="myform" method="post" action="<?php echo site_url('/login/Submit');?>">
 					<div class="form-group text-center">
 						<label for="Username" class="col-sm-2 control-label ">Username</label>
 						<div class="col-xs-4">
@@ -45,5 +45,6 @@
 		</div>
 	</DIV>
 </div>
+
 </body>
 </html> 

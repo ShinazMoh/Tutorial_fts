@@ -23,7 +23,7 @@
 						<div class="form-group selectpicker" data-live-search='true'>
 							<label class = "col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
-								<select id = "name_select" class = "form-control selectpicker">
+								<select id = "name_select" class = "form-control selectpicker" data-live-search='true'>
 								</select>
 							</div>
 						</div>
