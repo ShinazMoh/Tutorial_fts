@@ -3,6 +3,7 @@
 <title></title>
 </head>
 	<link href="<?php echo base_url('/css/bootstrap.css');  ?>" rel="stylesheet">
+
 <?php
 
 	$error = validation_errors();
@@ -32,11 +33,11 @@
 <div class="well">
 	<div class="row">
 		<div class="col-sm-6">
-			<form class="form-horizontal" method="post" action="<?php echo site_url('/Employee/save');?>">
+			<form class="form-horizontal" method="post" id="employeef" action="<?php echo site_url('/Employee/save');?>">
 				<div class="form-group" class="text-center">
 					<label for="Name" class="col-sm-4 control-label">Name : </label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" id="Username" placeholder="Name" >
+						<input type="text" class="form-control" name="user" id="Username" placeholder="Name" >
 						<input type="hidden" id="UserID" >
 						<!-- <input type="text" value="<?php //echo $error_flag['Name'];?>" class="form-control" name="Username" placeholder="Name" > -->
 					</div>
@@ -44,7 +45,8 @@
 				<div class="form-group" class="text-center">
 					<label for="Age"  class="col-sm-4 control-label">Age : </label>
 					<div class="col-sm-8">
-						<select id="Age" class="form-control">
+						<select id="Age" class="form-control" name="ages">
+						<option></option>
 						  <option>18</option>
 						  <option>10</option>
 						  <option>20</option>
@@ -54,13 +56,13 @@
 					</div>
 				</div>
 				<div class="form-group" class="text-center">
-					<label for="Address" class="col-sm-4 control-label">Address : </label>
+					<label for="Address" class="col-sm-4 control-label" id="address">Address : </label>
 					<div class="col-sm-8">
-						<textarea class="form-control" rows="3" id="Address"placeholder="Address"></textarea>
+						<textarea class="form-control" name="addre" rows="3" id="Address"placeholder="Address"></textarea>
 					</div>
 				</div>
 				<div class="form-group" class="text-center">
-					<label for="lANG" class="col-sm-4 control-label">Preferred Language : </label>
+					<label for="lANG" class="col-sm-4 control-label" name="lan">Preferred Language : </label>
 					<div class="col-sm-8">
 						<div class="radio" >
 						  <label>
@@ -83,7 +85,7 @@
 				<div class="form-group" class="text-center">
 					<div class="checkbox col-sm-4 control-label">
 							<label>
-							<input type="checkbox" id="Citizenship" value="1">Citizenship</label>
+							<input type="checkbox" id="Citizenship" name="city" value="1">Citizenship</label>
 					</div>
 				</div>
 			</form>
@@ -160,10 +162,71 @@
 <!-- End Modal -->
 
 <!-- If u put the link in up then the page will get late to load... becuase is firt read all the js and css files of bootstrap -->
-
+	
 <script type="text/javascript" src="<?php echo base_url('/js/jquery-1.11.3.min.js');  ?>" ></script>
 <script type="text/javascript" src="<?php echo base_url('/js/bootstrap.js');  ?> "></script>
+<script type="text/javascript" src="<?php echo base_url('/js/formValidation.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('/js/framework/bootstrap.js');?>"></script>
+
+
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#employeef').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            user: {
+                icon: 'false',
+                validators: {
+                    notEmpty: {
+                        message: 'The user is required and cannot be empty'
+                    }
+                }
+            },
+            addre: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The address is required'
+                        },
+                        stringLength: {
+                            max: 700,
+                            message: 'The address must be less than 700 characters long'
+                        }
+                    }
+                },
+            lan: {
+                validators: {
+                    notEmpty: {
+                        message: 'The lan is required'
+                    }
+                }
+            },
+            ages: {
+                validators: {
+                    notEmpty: {
+                        message: 'The age is required'
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Citizenship is required'
+                    }
+                }
+            }
+        }
+    });
+});
+
+
+
+
 
 function search_user()
 {
